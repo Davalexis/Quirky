@@ -5,100 +5,11 @@ import 'package:quirky/core/constants/theme.dart';
 import 'package:quirky/logic/task_notifier_provider.dart';
 import 'package:quirky/model/task_model.dart';
 import 'package:quirky/view/home_view/widget/add_screen_modal.dart';
+import 'package:quirky/view/home_view/widget/setting_screen_modal.dart';
 import 'package:quirky/view/home_view/widget/task_card_widget.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
-
-  //  final List<TaskModel> todayTasks = [
-  //   TaskModel(
-  //     title: "Read AI Paper",
-  //     id: "task-001",
-  //     isCompleted: false,
-  //     isSomeDay: "no",
-  //   ),
-  //   TaskModel(
-  //     title: "Daily Standup",
-  //     id: "task-002",
-  //     isCompleted: true,
-  //     isSomeDay: "no",
-  //   ),
-  //   TaskModel(
-  //     title: "Push Code to GitHub",
-  //     id: "task-003",
-  //     isCompleted: false,
-  //     isSomeDay: "no",
-  //   ),
-  //   TaskModel(
-  //     title: "Workout",
-  //     id: "task-004",
-  //     isCompleted: false,
-  //     isSomeDay: "no",
-  //   ),
-
-  //    TaskModel(
-  //     title: "Workout",
-  //     id: "task-004",
-  //     isCompleted: false,
-  //     isSomeDay: "no",
-  //   ),
-
-  //     TaskModel(
-  //       title: "read book",
-  //       id: "task-004",
-  //       isCompleted: false,
-  //       isSomeDay: "no",
-  //     ),
-  
-  //     TaskModel(
-  //       title: "hangout with friends",
-  //       id: "task-004",
-  //       isCompleted: false,
-  //       isSomeDay: "no",
-  //     ),  
-  //  ];
-
-  //  final List<TaskModel> somedayTasks = [
-  //   TaskModel(
-  //     title: "Design new logo",
-  //     id: "task-005",
-  //     isCompleted: false,
-  //     isSomeDay: "yes",
-  //   ),
-  //   TaskModel(
-  //     title: "AI side project",
-  //     id: "task-006",
-  //     isCompleted: false,
-  //     isSomeDay: "yes",
-  //   ),
-  //   TaskModel(
-  //     title: "Read Flutter Internals",
-  //     id: "task-007",
-  //     isCompleted: false,
-  //     isSomeDay: "yes",
-  //   ),
-  //   TaskModel(
-  //     title: "Hackathon",
-  //     id: "task-008",
-  //     isCompleted: false,
-  //     isSomeDay: "yes",
-  //   ),
-  //    TaskModel(
-  //     title: "Hackathon game",
-  //     id: "task-008",
-  //     isCompleted: false,
-  //     isSomeDay: "yes",
-
-      
-  //   ),
-
-  //    TaskModel(
-  //     title: "Movie night",
-  //     id: "task-008",
-  //     isCompleted: false,
-  //     isSomeDay: "yes",
-  //   ),
-  //  ];
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -137,7 +48,14 @@ class HomeScreen extends ConsumerWidget {
                 const SizedBox(width: 10),
                 _buildIconButton(
                   icon: HugeIcons.strokeRoundedSettings01,
-                  onPressed: () {},
+                  onPressed: () {
+                     showModalBottomSheet(
+                      useSafeArea: true,
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (context) => const SettingScreenModal(),
+                    );
+                  },
                 ),
               ],
             ),
@@ -156,6 +74,7 @@ class HomeScreen extends ConsumerWidget {
               title: 'Today',
             ),
             const SizedBox(height: 20),
+
             _buildScrollableTaskContainer(todayTasks, ref),
 
             const SizedBox(height: 30),

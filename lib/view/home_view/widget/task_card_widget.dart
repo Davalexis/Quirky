@@ -1,17 +1,22 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:quirky/core/constants/theme.dart';
 import 'package:hugeicons/hugeicons.dart';
+
+import 'package:quirky/core/constants/theme.dart';
+
 import '../../../model/task_model.dart';
 
 class TaskCardWidget extends StatelessWidget {
   final TaskModel task;
   final VoidCallback onTap;
+  final VoidCallback? onToggleComplete;
   final VoidCallback? onDelete;
 
   const TaskCardWidget({
     super.key,
     required this.task,
     required this.onTap,
+    this.onToggleComplete,
     this.onDelete,
   });
 
@@ -40,14 +45,12 @@ class TaskCardWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(25),
           color: quirkyTheme.scaffoldBackgroundColor,
           child: ListTile(
-            onTap: onTap,
+            onTap: () {},
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(30),
             ),
             leading: HugeIcon(
-              icon: task.isCompleted
-                  ? HugeIcons.strokeRoundedCheckList
-                  : HugeIcons.strokeRoundedCheckList, // TODO: You can update icon based on state
+              icon: HugeIcons.strokeRoundedCheckList,
               color: Colors.black.withOpacity(0.6),
               size: 25,
             ),
@@ -57,24 +60,31 @@ class TaskCardWidget extends StatelessWidget {
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
                 color: Colors.black.withOpacity(0.6),
+                decoration:
+                    task.isCompleted
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
+                decorationThickness: 5,
+                decorationColor: Colors.black.withOpacity(0.6),
               ),
             ),
-            trailing: onDelete != null
-                ? CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 20,
-                    child: Center(
-                      child: IconButton(
-                        onPressed: onDelete,
-                        icon: HugeIcon(
-                          icon: HugeIcons.strokeRoundedArrowTurnDown,
-                          color: Colors.black,
-                          size: 25,
+            trailing:
+                task.isCompleted
+                    ? null
+                    : InkWell(
+                      onTap: onTap,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        radius: 20,
+                        child: Center(
+                          child: Icon(
+                            Icons.check_sharp,
+                            size: 20,
+                            color: Colors.black.withOpacity(0.7),
+                          ),
                         ),
                       ),
                     ),
-                  )
-                : null,
           ),
         ),
       ),

@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:quirky/core/constants/theme.dart';
 import 'package:quirky/logic/task_notifier_provider.dart';
 
-
-
-
 class AddScreenModal extends ConsumerStatefulWidget {
   const AddScreenModal({super.key});
 
@@ -14,28 +11,21 @@ class AddScreenModal extends ConsumerStatefulWidget {
 }
 
 class _AddScreenModalState extends ConsumerState<AddScreenModal> {
-
   final TextEditingController _taskController = TextEditingController();
 
   String _selectedType = 'today';
-  
+
   @override
   void dispose() {
     _taskController.dispose();
     super.dispose();
   }
 
-  //  void _selectCategory(String category) {
-  //   setState(() {
-  //     String _selectedCategory = category;
-  //   });
-  // }
-
-
   @override
   Widget build(BuildContext context) {
     final ref = this.ref;
     return Container(
+      width: double.infinity,
       decoration: BoxDecoration(
         color: quirkyTheme.scaffoldBackgroundColor,
         borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
@@ -87,12 +77,11 @@ class _AddScreenModalState extends ConsumerState<AddScreenModal> {
               spacing: 10,
               children: [
                 _buildTypeSelectorButton('today'),
-                
+
                 _buildTypeSelectorButton('someday'),
               ],
             ),
           ),
-
 
           Image.asset('assets/images/Add files-pana.png', fit: BoxFit.cover),
           Spacer(),
@@ -111,8 +100,12 @@ class _AddScreenModalState extends ConsumerState<AddScreenModal> {
               onPressed: () {
                 final taskTitle = _taskController.text.trim();
                 if (taskTitle.isNotEmpty) {
-                 ref.read(taskListProvider.notifier).addTask(taskTitle, 
-                 isSomeDay: _selectedType == 'someday');
+                  ref
+                      .read(taskListProvider.notifier)
+                      .addTask(
+                        taskTitle,
+                        isSomeDay: _selectedType == 'someday',
+                      );
                   Navigator.pop(context);
                 }
               },
@@ -138,33 +131,33 @@ class _AddScreenModalState extends ConsumerState<AddScreenModal> {
   }
 }
 
-
-
 extension on _AddScreenModalState {
   Widget _buildTypeSelectorButton(String type) {
     final isSelected = _selectedType == type;
     return Expanded(
       child: InkWell(
-        onTap: () {
-          setState(() {
-            _selectedType = type;
-          });
-        },
+        onTap: () {},
         child: Container(
           decoration: BoxDecoration(
             color: isSelected ? Colors.white : Colors.grey.shade300,
             borderRadius: BorderRadius.circular(10),
-            border:  isSelected ? null : Border.all(
-              color: Colors.black.withOpacity(0.2),
-              width: 1,
-            ), 
+            border:
+                isSelected
+                    ? null
+                    : Border.all(
+                      color: Colors.black.withOpacity(0.2),
+                      width: 1,
+                    ),
           ),
-           padding: const EdgeInsets.symmetric(vertical: 12),
+          padding: const EdgeInsets.symmetric(vertical: 12),
           alignment: Alignment.center,
           child: Text(
             type == 'today' ? 'Today' : 'Someday',
             style: TextStyle(
-              color: isSelected ? Colors.black.withOpacity(0.7) : Colors.black.withOpacity(0.7),
+              color:
+                  isSelected
+                      ? Colors.black.withOpacity(0.7)
+                      : Colors.black.withOpacity(0.7),
               fontWeight: FontWeight.w600,
               fontSize: 16,
             ),
