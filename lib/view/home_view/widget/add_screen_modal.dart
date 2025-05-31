@@ -13,7 +13,7 @@ class AddScreenModal extends ConsumerStatefulWidget {
 class _AddScreenModalState extends ConsumerState<AddScreenModal> {
   final TextEditingController _taskController = TextEditingController();
 
-  String _selectedType = 'today';
+  String _selectedType = '';
 
   @override
   void dispose() {
@@ -43,6 +43,8 @@ class _AddScreenModalState extends ConsumerState<AddScreenModal> {
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: TextField(
               controller: _taskController,
+              keyboardType: TextInputType.text,
+              textCapitalization: TextCapitalization.words,
               style: TextStyle(
                 color: Colors.black.withOpacity(0.6),
                 fontSize: 20,
@@ -137,6 +139,7 @@ extension on _AddScreenModalState {
     return Expanded(
       child: InkWell(
         onTap: () {
+          // ignore: invalid_use_of_protected_member
           setState(() {
             _selectedType = type;
           });

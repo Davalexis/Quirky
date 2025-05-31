@@ -2,9 +2,7 @@ import 'package:quirky/logic/task_shared_preference_logic.dart';
 import 'package:quirky/model/task_model.dart';
 import 'package:riverpod/riverpod.dart';
 
-final taskListProvider = StateNotifierProvider<TaskNotifier, List<TaskModel>>((
-  ref,
-) {
+final taskListProvider = StateNotifierProvider<TaskNotifier, List<TaskModel>>((ref,) {
   return TaskNotifier();
 });
 
@@ -51,22 +49,9 @@ class TaskNotifier extends StateNotifier<List<TaskModel>> {
     TaskStorage.saveTask(state);
   }
 
-  void toggleTaskCompletion (String taskId){
-    final index = state.indexWhere((task) => task.id == taskId);
-    if (index != -1){
-      final task = state[index]; 
-      state = [
-        ...state.sublist(0,index),
-        task.copyWith(isCompleted: !task.isCompleted),
-        ...state.sublist(index + 1),
-      ];
-    }
-  }
 
   
 
 
 
 }
-
-

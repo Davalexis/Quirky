@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: quirkyTheme, 
+      theme: quirkyTheme,
       debugShowCheckedModeBanner: false,
       title: 'Quirky',
       home: HomeScreen(),
