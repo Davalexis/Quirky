@@ -136,7 +136,11 @@ extension on _AddScreenModalState {
     final isSelected = _selectedType == type;
     return Expanded(
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          setState(() {
+            _selectedType = type;
+          });
+        },
         child: Container(
           decoration: BoxDecoration(
             color: isSelected ? Colors.white : Colors.grey.shade300,
